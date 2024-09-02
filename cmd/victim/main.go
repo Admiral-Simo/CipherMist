@@ -25,7 +25,7 @@ func main() {
 
 	config := &tls.Config{Certificates: []tls.Certificate{cert}}
 
-	ln, err := tls.Listen("tcp", ":"+listenPort, config)
+	ln, err := tls.Listen("tcp", "0.0.0.0:"+listenPort, config)
 	if err != nil {
 		panic(err)
 	}
