@@ -1,18 +1,26 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io"
-	"net"
 	"os/exec"
 
 	"github.com/creack/pty"
 )
 
-	const listenPort = "4444"
+const listenPort = "4444"
 
 func main() {
-	ln, err := net.Listen("tcp", ":"+listenPort)
+	cert, err := tls.LoadX509KeyPair("cert.pem", "key.pem")
+	if err != nil {
+		fmt.Println("Error loading certificate", err)
+		return
+	}
+
+	config := &tls.Config{Certificates: []tls.Certificate{cert}}
+
+	ln, err := tls.Listen("tcp", ":"+listenPort, config)
 	if err != nil {
 		panic(err)
 	}

