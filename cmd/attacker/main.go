@@ -10,15 +10,15 @@ import (
 	"golang.org/x/term"
 )
 
-const (
-	victimIP   = "localhost"
-	victimPort = "4444"
-)
-
 func main() {
+	var location string
+
+	fmt.Print("Enter server host: ")
+	fmt.Scan(&location)
+
 	config := &tls.Config{InsecureSkipVerify: true}
 
-	conn, err := tls.Dial("tcp", victimIP+":"+victimPort, config)
+	conn, err := tls.Dial("tcp", location, config)
 	if err != nil {
 		fmt.Println("Failed to connect to victim:", err)
 		return

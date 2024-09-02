@@ -4,14 +4,19 @@ import (
 	"crypto/tls"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 
 	"github.com/creack/pty"
 )
 
-const listenPort = "4444"
-
 func main() {
+	listenPort := os.Getenv("LISTEN_PORT")
+	if listenPort == "" {
+		fmt.Println("Error: LISTEN_PORT environment variable not set")
+		return
+	}
+
 	cert, err := tls.LoadX509KeyPair("cert.pem", "key.pem")
 	if err != nil {
 		fmt.Println("Error loading certificate", err)
