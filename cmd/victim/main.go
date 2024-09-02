@@ -9,9 +9,9 @@ import (
 	"github.com/creack/pty"
 )
 
-func main() {
-	listenPort := "4444"
+	const listenPort = "4444"
 
+func main() {
 	ln, err := net.Listen("tcp", ":"+listenPort)
 	if err != nil {
 		panic(err)

